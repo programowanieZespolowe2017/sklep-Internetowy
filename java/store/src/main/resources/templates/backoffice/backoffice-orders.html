@@ -1,0 +1,70 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header"></head>
+<link href="/css/dashboard.css" rel="stylesheet"></link>
+<script>
+    /*<![CDATA[*/
+    $("form").submit(function (event) {
+        event.preventDefault();
+    });
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.get('/cart/add/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).val(), function (data) {
+                location.reload();
+            });
+        });
+    });
+    /*]]>*/
+</script>
+<body>
+<div th:with="nav=${'backoffice'}" th:include="fragments/navbar" style="overflow-y:hidden"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="fragments/backoffice-menuLeft"></div>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Products</th>
+                            <th style="text-align: center">Name</th>
+                            <th style="text-align: center">Email</th>
+                            <th style="text-align: center">Address</th>
+                            <th style="width: 1%">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order:${orders}">
+                            <td style="text-align: center;vertical-align:middle">
+                                <table class="table table-sm">
+                                    <tbody>
+                                    <tr th:each="orderEntry:${order.products}">
+                                        <td style="text-align: center;vertical-align:middle"><small th:text="${orderEntry.product.name}"></small></td>
+                                        <td style="text-align: center;vertical-align:middle"><small th:text="${orderEntry.qty}"></small></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.name}"></h6></td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.email}"></h6></td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.address}"></h6></td>
+
+                            <td align="center" style="vertical-align:middle">
+                                <a th:href="${'/backoffice/orders/remove/'+order.id}">
+                                    <img src="/img/remove.png"></img>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header"></head>
+<link href="/css/dashboard.css" rel="stylesheet"></link>
+<script>
+    /*<![CDATA[*/
+    $( "form" ).submit(function( event ) {
+        event.preventDefault();
+    });
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.get( '/cart/add/' + $(this).attr('id') + '/'+$( "#qty"+$(this).attr('id')).val(), function( data ) {
+                location.reload();
+            });
+        });
+    });
+    /*]]>*/
+</script>
+<body>
+<div th:with="nav=${'products'}" th:include="fragments/navbar" style="overflow-y:hidden"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="/products" th:classappend="${activeCategory==''?'active':''}">All
+                        categories</a>
+                </li>
+                <li class="nav-item" th:each="cat:${categories}">
+                    <a class="nav-link" th:href="@{'/products/c/'+${cat.name}}" th:text="${cat.name}"
+                       th:classappend="${activeCategory==cat.name?'active':''}"></a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <div class="row-eq-height row">
+                <div class="col-md-3" th:each="prd:${products}" th:with="product=${prd}"
+                     style="  display: flex;flex-direction: column;"
+                     th:include="fragments/productListEntry">
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header"></head>
+<link href="/css/dashboard.css" rel="stylesheet"></link>
+<script>
+    /*<![CDATA[*/
+    $("form").submit(function (event) {
+        event.preventDefault();
+    });
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.get('/cart/add/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).val(), function (data) {
+                location.reload();
+            });
+        });
+    });
+    /*]]>*/
+</script>
+<body>
+<div th:with="nav=${'backoffice'}" th:include="fragments/navbar" style="overflow-y:hidden"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="fragments/backoffice-menuLeft"></div>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div th:if="${productRemoveError}" class="alert alert-danger alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        Remove all orders containing this product first.
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Pic</th>
+                            <th style="text-align: center">Name</th>
+                            <th style="text-align: center">Price</th>
+                            <th style="text-align: center">Id</th>
+                            <th style="width: 1%">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product:${products}">
+                            <td style="text-align: center;vertical-align:middle"><img
+                                    th:src="@{'/img/products/'+${product.img}}"></img></td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${product.name}"></h6></td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${product.price}"></h6></td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${product.id}"></h6></td>
+
+                            <td align="center" style="vertical-align:middle">
+                                <a th:href="${'/backoffice/products/remove/'+product.id}">
+                                    <img src="/img/remove.png"></img>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

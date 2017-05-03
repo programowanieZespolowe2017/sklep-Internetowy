@@ -1,0 +1,85 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header"></head>
+<script>
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $(".updateq").click(function () {
+            console.log('/cart/set/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).attr('value'));
+            window.location.replace('/cart/set/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).val());
+        });
+    });
+
+    /*]]>*/
+</script>
+<body style="padding-top: 2rem;">
+<div th:with="nav=${'cart'}" th:include="fragments/navbar"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="welcome-message">
+            <h1 class="display-3">Shopping cart</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="color: #5cb85c;" th:if="${itemsInCart==0}">
+        <div class="col-md-12"><h1>Your shopping cart is empty.</h1>
+        </div>
+    </div>
+    <div th:if="${itemsInCart&gt;0}">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+
+                    <tbody>
+                    <tr th:each="productEntry:${cartProducts}">
+                        <td style="text-align: center;vertical-align:middle"><img
+                                th:src="@{'/img/products/'+${productEntry.getKey().img}}"></img></td>
+                        <td style="text-align: center;vertical-align:middle"><h6
+                                th:text="${productEntry.getKey().name}"></h6></td>
+                        <td style="text-align: center;vertical-align:middle"><h3 th:inline="text">
+                            $[[${#numbers.formatDecimal(productEntry.getKey().price, 1,'COMMA',
+                            2,'POINT')}]]</h3></td>
+                        <td style="text-align: center;vertical-align:middle"><input type="text" class="form-control-sm"
+                                                                                    id="qty" th:inline="text"
+                                                                                    style="max-width: 50px"
+                                                                                    th:value="${productEntry.getValue()}"
+                                                                                    th:id="${'qty'+productEntry.getKey().id}"></input><br></br>
+                            <button class="btn-sm btn-outline-success updateq" type="submit"
+                                    th:id="${productEntry.getKey().id}">Update
+                            </button>
+                        </td>
+                        <td style="text-align: center;vertical-align:middle"><h3 th:inline="text">
+                            $[[${#numbers.formatDecimal(productEntry.getKey().price*productEntry.getValue(), 1,'COMMA',
+                            2,'POINT')}]]</h3></td>
+                        <td align="center" style="vertical-align:middle">
+                            <a
+                                    th:href="${'/cart/set/'+productEntry.getKey().id+'/0'}"><img
+                                    src="/img/remove.png"></img>
+                            </a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr></hr>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/cart/empty">
+                    <button class="btn btn-outline-success" type="submit" style="float:left;display: inline">Remove all
+                    </button>
+                </a>
+                <div style="float:right;display: inline">
+                    <h3 th:inline="text" style="display: inline">Subotal:
+                        $[[${#numbers.formatDecimal(sum, 1,'COMMA',
+                        2,'POINT')}]]</h3>
+                    <a href="/checkout">
+                        <button class="btn btn-outline-success" type="submit" style="display: inline">Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

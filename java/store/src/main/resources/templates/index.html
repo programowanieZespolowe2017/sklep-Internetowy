@@ -1,0 +1,71 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header"></head>
+<script>
+    /*<![CDATA[*/
+    $( "form" ).submit(function( event ) {
+        event.preventDefault();
+    });
+    $(document).ready(function () {
+        $("button").click(function () {
+            $.get( '/cart/add/' + $(this).attr('id') + '/'+$( "#qty"+$(this).attr('id')).val(), function( data ) {
+                location.reload();
+            });
+        });
+    });
+    /*]]>*/
+</script>
+<body style="padding-top: 2rem;">
+<div th:with="nav=${'index'}" th:include="fragments/navbar"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="welcome-message">
+            <h1 class="display-3">Welcome to Electronics Store</h1>
+            Can't find what you looking for? Have suggestions? Tell us on <a href="http://www.example.com"
+                                                                             target="_blank">Facebook</a> <br></br>Posting
+            <strong>SUPER</strong> Discount Coupons on our <a href="http://example.com" target="_blank">Facebook</a>
+        </div>
+    </div>
+</div>
+<hr></hr>
+<div class="container">
+    <div class="row" style="color: #5cb85c;">
+        <div class="col-md-12"><h1><u>Top Sellers</u></h1>
+        </div>
+    </div>
+    <div class="row-eq-height row">
+        <div class="col-md-4" th:each="prd:${topSelling}" th:with="product=${prd}" style="  display: flex;flex-direction: column;"
+             th:include="fragments/productListEntry">
+        </div>
+    </div>
+
+
+    <div class="row" style="color: #5cb85c">
+        <div class="col-md-12" style="margin-top: 50px"><h1><u>New Products</u></h1>
+        </div>
+    </div>
+    <div class="row-eq-height row">
+        <div class="col-md-4" th:each="prd:${newProducts}" th:with="product=${prd}" style="  display: flex;flex-direction: column;"
+             th:include="fragments/productListEntry">
+        </div>
+    </div>
+
+
+    <div class="row" style="color: #5cb85c;">
+        <div class="col-md-12" style="margin-top: 50px"><h1><u>Popular Products</u></h1>
+        </div>
+    </div>
+    <div class="row-eq-height row">
+        <div class="col-md-4" th:each="prd:${popularProducts}" th:with="product=${prd}" style="  display: flex;flex-direction: column;"
+             th:include="fragments/productListEntry">
+        </div>
+    </div>
+
+    <hr></hr>
+
+    <footer>
+        <p>&copy; Electronics Store 2017</p>
+    </footer>
+</div>
+</body>
+</html>
