@@ -17,7 +17,7 @@ public class Product {
     private String description;
     private String img;
 
-    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade={CascadeType.REFRESH})
     private Category category;
 
     public Long getId() {
