@@ -1,0 +1,44 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <nav
+            class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Store</a>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" th:classappend="${nav=='index'?'active':''}">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item" th:classappend="${nav=='products'?'active':''}">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item" th:classappend="${nav=='cart'?'active':''}">
+                    <a class="nav-link" href="/cart"
+                       th:text="${'Cart'}+${itemsInCart==0?'':('('+itemsInCart+')')}">Cart</a>
+                </li>
+                <li class="nav-item dropdown" th:classappend="${nav=='aboutus'?'active':''}">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">About us</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/sitemap">Site Map</a>
+                        <a class="dropdown-item" href="/contact">Contact us</a>
+                        <a class="dropdown-item" href="/privacy">Privacy policy</a>
+                    </div>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item"
+                    th:classappend="${nav=='backoffice'?'active':''}">
+                    <a class="nav-link" href="/backoffice">Backoffice</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="get" action="/products/search">
+                <input class="form-control mr-sm-2" type="text" placeholder="Product search" name="term"></input>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,26 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header"></head>
+<script>
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $(".updateq").click(function () {
+            console.log('/cart/set/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).attr('value'));
+            window.location.replace('/cart/set/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).val());
+        });
+    });
+
+    /*]]>*/
+</script>
+<body style="padding-top: 2rem;">
+<div th:with="nav=${'cart'}" th:include="fragments/navbar"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="welcome-message">
+            <h1 class="display-3">Order has been placed.</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

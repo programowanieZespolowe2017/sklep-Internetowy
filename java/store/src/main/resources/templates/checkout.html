@@ -1,0 +1,51 @@
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header"></head>
+<script>
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $(".updateq").click(function () {
+            console.log('/cart/set/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).attr('value'));
+            window.location.replace('/cart/set/' + $(this).attr('id') + '/' + $("#qty" + $(this).attr('id')).val());
+        });
+    });
+
+    /*]]>*/
+</script>
+<body style="padding-top: 2rem;">
+<div th:with="nav=${'cart'}" th:include="fragments/navbar"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="welcome-message">
+            <h1 class="display-3">Checkout</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="/checkout/confirm">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="Enter email" name="email"></input>
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="Enter your name"></input>
+                </div>
+                <div class="form-group">
+                    <label for="exampleTextarea">Address</label>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" name="address"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
