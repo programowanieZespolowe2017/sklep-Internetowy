@@ -12,7 +12,7 @@ Dla każdej strony wyświetlany jest górny pasek z odpowiednimi modułami oraz 
 
 
 # Strona główna:
-Kategorie:
+Kategorie:<br />
 Najlepiej sprzedające się
 Nowe produkty
 Popularne produkty (najczęściej oglądane)
