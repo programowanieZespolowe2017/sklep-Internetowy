@@ -1,8 +1,9 @@
 # sklep-Internetowy
-*Mirosław Kusiak  
-*Krystian Szkodny
-*Jakub Borówka
-*Konrad Szyja
+
+Mirosław Kusiak  
+Krystian Szkodny
+Jakub Borówka
+Konrad Szyja
 
 Opis witryny
 
