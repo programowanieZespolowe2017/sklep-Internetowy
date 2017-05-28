@@ -65,23 +65,24 @@ public class BackofficeController {
     @RequestMapping(value = "/products/new", method = RequestMethod.POST)
     public String backofficeProductsNewPost(Model m, @RequestParam("name") String name, @RequestParam("price") double price, @RequestParam("description") String description, @RequestParam("category") long category, @RequestParam("stockLevel") int stockLevel, @RequestParam("picture") MultipartFile picture) {
         Product p = new Product();
-        try (FileOutputStream fos = new FileOutputStream("products/img/products/" + picture.getName())) {
+        try (FileOutputStream fos = new FileOutputStream("products/img/products/" + picture.getOriginalFilename())) {
             fos.write(picture.getBytes());
             fos.close();
+            p.setName(name);
+            p.setPrice(price);
+            p.setDescription(description);
+            p.setStockLevel(stockLevel);
+            p.setCategory(categoryRepository.findOne(category));
+            p.setImg(picture.getOriginalFilename());
+            productRepository.save(p);
+
+            m.addAttribute("products", productRepository.findAll());
+            m.addAttribute("categories", categoryRepository.findAll());
+            m.addAttribute("activeCategory", "products/new");
         } catch (Exception e) {
         }
 
-        p.setName(name);
-        p.setPrice(price);
-        p.setDescription(description);
-        p.setStockLevel(stockLevel);
-        p.setCategory(categoryRepository.findOne(category));
-        p.setImg(picture.getName());
-        productRepository.save(p);
 
-        m.addAttribute("products", productRepository.findAll());
-        m.addAttribute("categories", categoryRepository.findAll());
-        m.addAttribute("activeCategory", "products/new");
         return "backoffice/backoffice-products-new";
     }
 

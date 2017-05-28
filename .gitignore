@@ -26,4 +26,5 @@ nbdist/
 ### Store ###
 *.db
 java/store/products
+java/store/products.7z
 java/store/target
