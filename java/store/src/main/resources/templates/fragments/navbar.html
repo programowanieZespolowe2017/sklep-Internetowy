@@ -34,10 +34,19 @@
                     th:classappend="${nav=='backoffice'?'active':''}">
                     <a class="nav-link" href="/backoffice">Backoffice</a>
                 </li>
+
             </ul>
             <form class="form-inline my-2 my-lg-0" method="get" action="/products/search">
                 <input class="form-control mr-sm-2" type="text" placeholder="Product search" name="term"></input>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+
+            <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" style="margin-left: 20px"
+                  action="#" th:action="@{/logout}">
+                <button type="submit" class="btn btn-outline-secondary my-2 my-sm-0"
+                        th:text="${'Logout('+(#authentication.name)+')'}">Logout
+                </button>
             </form>
         </div>
     </nav>
