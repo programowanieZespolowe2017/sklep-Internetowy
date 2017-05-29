@@ -1,6 +1,7 @@
 package com.smcebi.checkout;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -14,9 +15,20 @@ public class Orderd {
     private String email;
     private String name;
     private String address;
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderEntry> products;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
+    private Timestamp timestamp;
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -57,5 +69,13 @@ public class Orderd {
 
     public void setProducts(List<OrderEntry> products) {
         this.products = products;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

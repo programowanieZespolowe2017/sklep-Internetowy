@@ -37,7 +37,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/", "/img/**", "/public/**", "/css/**", "/fonts/**", "/js/**", "/cart/**", "/products/**", "/checkout/**").permitAll()
+                .antMatchers("/", "/img/**", "/public/**", "/css/**", "/fonts/**", "/js/**", "/cart/**", "/products/**", "/checkout/**", "/about-us/**").permitAll()
                 .antMatchers("/backoffice/**").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().hasAuthority("ADMIN")
                 .and()
@@ -50,6 +50,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .deleteCookies("remember-me")
                 .logoutSuccessUrl("/").permitAll()
+                .and()
+                .httpBasic()
                 .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
