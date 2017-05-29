@@ -33,6 +33,7 @@
                             <th style="text-align: center">Name</th>
                             <th style="text-align: center">Email</th>
                             <th style="text-align: center">Address</th>
+                            <th style="text-align: center">Status</th>
                             <th style="width: 1%">Remove</th>
                         </tr>
                         </thead>
@@ -42,15 +43,33 @@
                                 <table class="table table-sm">
                                     <tbody>
                                     <tr th:each="orderEntry:${order.products}">
-                                        <td style="text-align: center;vertical-align:middle"><small th:text="${orderEntry.product.name}"></small></td>
-                                        <td style="text-align: center;vertical-align:middle"><small th:text="${orderEntry.qty}"></small></td>
+                                        <td style="text-align: center;vertical-align:middle">
+                                            <small th:text="${orderEntry.product.name}"></small>
+                                        </td>
+                                        <td style="text-align: center;vertical-align:middle">
+                                            <small th:text="${orderEntry.qty}"></small>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </td>
                             <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.name}"></h6></td>
                             <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.email}"></h6></td>
-                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.address}"></h6></td>
+                            <td style="text-align: center;vertical-align:middle"><h6 th:text="${order.address}"></h6>
+                            </td>
+                            <td style="text-align: center;vertical-align:middle">
+
+                                <form th:action="${'/orders/setStatus/'+order.id}" method="post">
+                                    <div class="form-group">
+                                        <select class="form-control statusOption" name="status">
+                                            <option th:each="state : ${T(com.smcebi.checkout.OrderStatus).values()}"
+                                                    th:value="${state}"
+                                                    th:text="${state}" th:selected="${state==order.status}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </td>
 
                             <td align="center" style="vertical-align:middle">
                                 <a th:href="${'/backoffice/orders/remove/'+order.id}">
@@ -67,4 +86,16 @@
 </div>
 
 </body>
+<script>
+    $("document").ready(function () {
+        $('.statusOption').change(function () {
+            var $ff = $(this.form);
+            $.ajax({
+                type: "POST",
+                url: $ff.attr('action'),
+                data: $ff.serialize()
+            });
+        });
+    })
+</script>
 </html>
