@@ -1,5 +1,6 @@
 package com.smcebi.products;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -12,4 +13,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     Set<Product> findByName(String name);
     Set<Product> findByCategoryName(String category);
     List<Product> findTop3ByOrderByIdDesc();
+
+    @Query("select p from OrderEntry oe right outer join oe.product p group by p order by count(oe) desc")
+    List<Product> findTopSelling();
 }
