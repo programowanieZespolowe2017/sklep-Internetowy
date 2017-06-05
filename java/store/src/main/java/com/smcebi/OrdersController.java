@@ -28,7 +28,7 @@ public class OrdersController {
     @ResponseBody
     @RequestMapping("/first")
     long firstOrder() {
-        Optional<Orderd> o = Optional.ofNullable(orderdRepository.findTop1ByStatusOrderByTimestampDesc(OrderStatus.Created));
+        Optional<Orderd> o = Optional.ofNullable(orderdRepository.findTop1ByStatusOrderByTimestampAsc(OrderStatus.Created));
         return o.map(Orderd::getId).orElse(-1L);
     }
 
