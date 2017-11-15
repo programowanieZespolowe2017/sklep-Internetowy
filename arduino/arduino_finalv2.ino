@@ -73,8 +73,6 @@ void button1action()
 }
 
 
-
-
 void button3action()
 {
   if ( up+1 <sredniks)
