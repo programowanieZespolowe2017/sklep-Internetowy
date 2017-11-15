@@ -34,7 +34,6 @@ Dodatkowo: przycisk usuwający wszystkie przedmioty z koszyka, przycisk do przej
 Pole na adres email<br />
 Pole na imię i nazwisko<br />
 Pole adresowe<br />
-Moduł upoważniający do zalogowania się na konto klienta<br />
 Przycisk do zatwierdzania zamówienia<br />
 
 # Moduł „O nas”:
