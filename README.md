@@ -43,8 +43,6 @@ mapa serwisu<br />
 kontakt<br />
 polityka prywatności<br />
 
-# Strona logowania/rejestracji
-
 # Strona menadżerska – ukryta strona do zarządzania sklepem wymagająca zalogowania się.
 Edytowalna lista produktów<br />
 Dodawanie nowego produktu<br />
