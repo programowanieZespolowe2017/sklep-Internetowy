@@ -2,7 +2,6 @@
 
 Mirosław Kusiak<br />
 Krystian Szkodny<br />
-Jakub Borówka<br />
 Konrad Szyja<br />
 
 # Opis witryny:
